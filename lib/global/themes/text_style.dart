@@ -35,7 +35,7 @@ class CustomTextStyle {
       style.undertext.copyWith(color: fontColor ?? defaultTextColor);
 
   Heading get heading => Heading(fontColor);
-  Heading get body => Heading(fontColor);
+  Body get body => Body(fontColor);
 }
 
 /// Heading Text Styles
