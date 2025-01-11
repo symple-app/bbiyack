@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:hackerton_gdg/global/themes/color_theme.dart';
+import 'package:hackerton_gdg/global/themes/text_style.dart';
 import 'package:hackerton_gdg/shared/widgets/button/bottom_button.dart';
 
 class SelectCharacterPage extends StatefulWidget {
@@ -26,9 +28,19 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
       body: SafeArea(
           child: Column(
         children: [
-          SizedBox(height: 72),
-          Text("고민을 털어놓을 끼오 스승을 골라주세요"),
-          Spacer(),
+          SizedBox(height: 76),
+          Center(
+            child: Text(
+              "고민을 털어놓을\n 끼오 스승을 골라주세요",
+              style: CustomTextStyle.of(
+                      fontColor: ColorTheme.of(context).label.normal)
+                  .heading
+                  .mobile
+                  .xl2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(height: 70),
           CarouselSlider(
             options: CarouselOptions(
               height: 340.0,
@@ -53,7 +65,13 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
             }).toList(),
           ),
           Spacer(),
-          Text("양옆으로 넘겨서 선택해주세요"),
+          Text("양옆으로 넘겨서 선택해주세요",
+              style: CustomTextStyle.of(
+                      fontColor:
+                          ColorTheme.of(context).static.black.withOpacity(0.6))
+                  .body
+                  .mobile
+                  .medium),
           SizedBox(height: 12),
           BottomButton(
             title: '${character[_currentIndex]}로 할래요',

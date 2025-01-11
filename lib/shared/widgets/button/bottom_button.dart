@@ -7,6 +7,8 @@ class BottomButton extends StatelessWidget {
   final Function()? onTap;
   final bool isActive;
   final bool isLoading;
+  final Color? color;
+  final Color? foregroundColor;
 
   const BottomButton({
     super.key,
@@ -14,6 +16,8 @@ class BottomButton extends StatelessWidget {
     this.onTap,
     this.isActive = true,
     this.isLoading = false,
+    this.color,
+    this.foregroundColor,
   });
 
   @override
@@ -29,7 +33,7 @@ class BottomButton extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: isActive
-                ? ColorTheme.of(context).primary.normal
+                ? color ?? ColorTheme.of(context).primary.normal
                 : ColorTheme.of(context).interaction.disable,
           ),
           child: Center(
@@ -45,7 +49,8 @@ class BottomButton extends StatelessWidget {
                 : Text(
                     title,
                     style: CustomTextStyle.of(
-                      fontColor: ColorTheme.of(context).static.white,
+                      fontColor: foregroundColor ??
+                          ColorTheme.of(context).static.white,
                     ).subTitle,
                     textAlign: TextAlign.center,
                   ),
