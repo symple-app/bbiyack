@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackerton_gdg/shared/models/mentor_model.dart';
+import 'package:hackerton_gdg/shared/provider/mentor_provider.dart';
 import 'package:hackerton_gdg/shared/widgets/button/bottom_button.dart';
 
 class SelectCharacterPage extends StatefulWidget {
@@ -23,8 +26,7 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> character = ["꼭끼오", "듀끼오", "트끼오"];
-    List<String> imgText = ['one', 'du', 't'];
+    List<Mentor> mentorList = context.read<MentorProvider>().mentorList;
 
     return Scaffold(
       body: SafeArea(
@@ -44,12 +46,12 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
                 });
               },
             ),
-            items: [0, 1, 2].map((i) {
+            items: mentorList.map((mentor) {
               return Builder(
                 builder: (BuildContext context) {
                   return SizedBox(
                       child: Image.asset(
-                    'assets/new/character/${imgText[i]}_ggio_card.png',
+                    'assets/new/character/${mentor.assetName}_ggio_card.png',
                     fit: BoxFit.fitHeight,
                   ));
                 },
@@ -60,7 +62,12 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
           Text("양옆으로 넘겨서 선택해주세요"),
           SizedBox(height: 12),
           BottomButton(
-            title: '${character[_currentIndex]}로 할래요',
+            title: '${mentorList[_currentIndex].name}로 할래요',
+            onTap: () {
+              context
+                  .read<MentorProvider>()
+                  .selectMentor(mentorList[_currentIndex]);
+            },
           ),
         ],
       )),

@@ -9,10 +9,12 @@ import 'package:hackerton_gdg/features/authentication/presentation/pages/phone_a
 import 'package:hackerton_gdg/features/authentication/presentation/pages/phone_verify_page.dart';
 import 'package:hackerton_gdg/features/character/presentation/pages/select_character_page.dart';
 import 'package:hackerton_gdg/features/home/presentation/pages/home_page.dart';
+import 'package:hackerton_gdg/shared/provider/mentor_provider.dart';
 import 'package:hackerton_gdg/shared/repositories/user_repository.dart';
 import 'package:hackerton_gdg/shared/utils/observer_util.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
 import 'package:hackerton_gdg/splash.dart';
+import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -54,7 +56,13 @@ class _AppState extends State<App> {
             )..add(AuthenticationSubscriptionRequested()),
           ),
         ],
-        child: const AppView(),
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+                create: (BuildContext context) => MentorProvider()),
+          ],
+          child: const AppView(),
+        ),
       ),
     );
   }
