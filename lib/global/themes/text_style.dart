@@ -74,7 +74,9 @@ class Body {
 
   TextStyleScheme get style => sympleTextStyle;
 
-  BodyLgTextStyle get mobile => BodyLgTextStyle(fontColor);
+  BodyLgTextStyle get lg => BodyLgTextStyle(fontColor);
+  BodyMdTextStyle get md => BodyMdTextStyle(fontColor);
+  BodySmTextStyle get sm => BodySmTextStyle(fontColor);
 }
 
 class BodyLgTextStyle {

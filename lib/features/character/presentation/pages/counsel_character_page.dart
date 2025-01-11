@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
+import 'package:hackerton_gdg/global/themes/text_style.dart';
+import 'package:hackerton_gdg/shared/models/mentor_model.dart';
+import 'package:hackerton_gdg/shared/provider/mentor/mentor_provider.dart';
 import 'package:hackerton_gdg/shared/widgets/button/bottom_button.dart';
 
 class CounselCharacterPage extends StatefulWidget {
   const CounselCharacterPage({Key? key}) : super(key: key);
+
+  static Route<void> route() {
+    return MaterialPageRoute(builder: (_) => const CounselCharacterPage());
+  }
 
   @override
   _CounselCharacterPageState createState() => _CounselCharacterPageState();
 }
 
 class _CounselCharacterPageState extends State<CounselCharacterPage> {
-  String character = 'assets/new/character/one_ggio.png';
   int currentIndex = 0;
 
   @override
@@ -20,9 +27,13 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMentorNameOne = context.read<MentorProvider>().isMentorNameOne();
+    Mentor selectedMentor = context.read<MentorProvider>().selectedMentor;
+
     return Scaffold(
+      backgroundColor: Color(0xffDBDCDF),
       appBar: AppBar(
-        backgroundColor: Color(0xFFDBDCDF),
+        backgroundColor: selectedMentor.backgroundColor,
         foregroundColor: ColorTheme.of(context).inverse.background,
         title: Padding(
           padding: EdgeInsets.only(left: 10),
@@ -73,23 +84,47 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFFDBDCDF)),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              selectedMentor.backgroundColor,
+              Colors.white,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: SafeArea(
           child: Column(
             children: [
               Row(
                 children: [
                   Spacer(),
-                  Transform.rotate(angle: -0.1, child: Image.asset(character)),
+                  isMentorNameOne
+                      ? Transform.rotate(
+                          angle: -0.1,
+                          child: Image.asset(selectedMentor.characterAsset),
+                        )
+                      : Image.asset(selectedMentor.characterAsset),
                   SizedBox(width: 12),
                   Container(
-                    width: 200, // 사각형 너비
-                    height: 100, // 사각형 높이
-                    decoration: BoxDecoration(
-                      color: Colors.white, // 배경 색상
-                      borderRadius: BorderRadius.circular(16), // 모서리 둥글게
+                    constraints: BoxConstraints(
+                      minWidth: 218,
                     ),
-                    child: Center(child: Text("오늘은 무슨 일이 있었니?\n구체적으로 말해봐~")),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.8), // 배경 색상
+                      borderRadius: BorderRadius.circular(16), // 모서리 둥글게
+                      border: Border.all(
+                          color: Colors.black.withValues(alpha: 0.12),
+                          width: 1),
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      selectedMentor.summaryText,
+                      style: CustomTextStyle.of(
+                        fontColor: Color(0xff000000).withValues(alpha: 0.8),
+                      ).body.lg.semibold,
+                    ),
                   ),
                   Spacer(),
                 ],
@@ -121,8 +156,8 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
               Spacer(),
               BottomButton(
                 title: "다음으로",
-                color: Color(0xFFFFB100),
-                foregroundColor: Colors.black,
+                color: selectedMentor.primaryColor,
+                foregroundColor: selectedMentor.textColor ?? Colors.white,
               )
             ],
           ),
@@ -141,6 +176,11 @@ class ProcessCircleComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor =
+        context.read<MentorProvider>().getProcessConnectRectBackgroundColor();
+    Color activateColor =
+        context.read<MentorProvider>().getProcessConnectRectActivateColor();
+
     double finalOffset = offset;
 
     return Transform.translate(
@@ -149,7 +189,7 @@ class ProcessCircleComponent extends StatelessWidget {
         width: 24.0, // 원의 너비
         height: 24.0, // 원의 높이
         decoration: BoxDecoration(
-          color: isOn ? Color(0xFFFFB100) : Colors.white, // 원의 색상
+          color: isOn ? activateColor : backgroundColor, // 원의 색상
           shape: BoxShape.circle, // 원형으로 설정
         ),
       ),
@@ -166,6 +206,11 @@ class ProcessConnectRectComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor =
+        context.read<MentorProvider>().getProcessConnectRectBackgroundColor();
+    Color activateColor =
+        context.read<MentorProvider>().getProcessConnectRectActivateColor();
+
     double finalOffset = offset;
 
     return Transform.translate(
@@ -174,7 +219,7 @@ class ProcessConnectRectComponent extends StatelessWidget {
         width: 40.0, // 원의 너비
         height: 8.0, // 원의 높이
         decoration: BoxDecoration(
-          color: isOn ? Color(0xFFFFB100) : Colors.white,
+          color: isOn ? activateColor : backgroundColor,
         ),
       ),
     );
