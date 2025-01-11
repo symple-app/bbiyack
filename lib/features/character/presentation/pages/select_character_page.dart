@@ -45,7 +45,7 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
                 builder: (BuildContext context) {
                   return SizedBox(
                       child: Image.asset(
-                    'assets/new/character/${imgText[i]}_ggio.png',
+                    'assets/new/character/${imgText[i]}_ggio_card.png',
                     fit: BoxFit.fitHeight,
                   ));
                 },
