@@ -1,12 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:hackerton_gdg/features/authentication/models/authentication.model.dart';
 import 'package:hackerton_gdg/shared/models/user_model.dart';
 
 class UserRepository {
-  static const String _userKey = 'user';
-
   final SupabaseClient supabase = Supabase.instance.client;
 
   late SympleUser _user;

@@ -26,7 +26,6 @@ class PhoneVerifyPage extends StatefulWidget {
 }
 
 class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
-  bool _isLoading = false;
   String verifyCode = "";
 
   @override
@@ -98,9 +97,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
       isNext: verifyCode.length == 6,
       bottomButtonText: '다음으로',
       bottomButtonOnTap: () {
-        setState(() {
-          _isLoading = true;
-        });
+        setState(() {});
 
         context.read<AuthenticationBloc>().add(
               AuthenticationVerifyCode(verifyCode),
