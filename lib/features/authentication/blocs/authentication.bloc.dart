@@ -82,6 +82,13 @@ class AuthenticationBloc
 
   Future<AuthenticationUser?> _tryGetUser() async {
     try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      User? firebaseAuthUser = auth.currentUser;
+
+      if (firebaseAuthUser != null) {
+        print("Firebase User Data is : $firebaseAuthUser");
+      }
+
       AuthenticationUser? user =
           await _authenticationRepository.getAuthenticationUser();
 

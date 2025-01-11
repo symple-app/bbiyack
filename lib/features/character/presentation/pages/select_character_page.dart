@@ -2,10 +2,17 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
 import 'package:hackerton_gdg/global/themes/text_style.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackerton_gdg/shared/models/mentor_model.dart';
+import 'package:hackerton_gdg/shared/provider/mentor_provider.dart';
 import 'package:hackerton_gdg/shared/widgets/button/bottom_button.dart';
 
 class SelectCharacterPage extends StatefulWidget {
   const SelectCharacterPage({Key? key}) : super(key: key);
+
+  static Route<void> route() {
+    return MaterialPageRoute(builder: (_) => const SelectCharacterPage());
+  }
 
   @override
   _SelectCharacterPageState createState() => _SelectCharacterPageState();
@@ -21,8 +28,7 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> character = ["꼭끼오", "듀끼오", "트끼오"];
-    List<String> imgText = ['one', 'du', 't'];
+    List<Mentor> mentorList = context.read<MentorProvider>().mentorList;
 
     return Scaffold(
       body: SafeArea(
@@ -52,12 +58,12 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
                 });
               },
             ),
-            items: [0, 1, 2].map((i) {
+            items: mentorList.map((mentor) {
               return Builder(
                 builder: (BuildContext context) {
                   return SizedBox(
                       child: Image.asset(
-                    'assets/new/character/${imgText[i]}_ggio_card.png',
+                    'assets/new/character/${mentor.assetName}_ggio_card.png',
                     fit: BoxFit.fitHeight,
                   ));
                 },
@@ -74,7 +80,12 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
                   .medium),
           SizedBox(height: 12),
           BottomButton(
-            title: '${character[_currentIndex]}로 할래요',
+            title: '${mentorList[_currentIndex].name}로 할래요',
+            onTap: () {
+              context
+                  .read<MentorProvider>()
+                  .selectMentor(mentorList[_currentIndex]);
+            },
           ),
         ],
       )),
