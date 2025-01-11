@@ -1,9 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:hackerton_gdg/app.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
 import 'package:hackerton_gdg/global/themes/text_style.dart';
-import 'package:hackerton_gdg/shared/widgets/button/bottom_button.dart';
 
 class CounselResultPage extends StatefulWidget {
   const CounselResultPage({Key? key}) : super(key: key);
@@ -46,7 +43,7 @@ class _CounselResultPageState extends State<CounselResultPage> {
               style:
                   CustomTextStyle.of(fontColor: Colors.black.withOpacity(0.6))
                       .body
-                      .mobile
+                      .lg
                       .regular,
             ),
             SizedBox(height: 16),
