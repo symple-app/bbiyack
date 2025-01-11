@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "941708243242",
+    "project_id": "symple-bbiyack",
+    "storage_bucket": "symple-bbiyack.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941708243242:android:10eafb3510af1dbf8eae53",
+        "android_client_info": {
+          "package_name": "com.symplebbiyack.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWpgG_IJTb5des8AL35NUa-TSyIk9ldfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
