@@ -34,9 +34,7 @@ class AuthenticationBloc
   void _onPressedNextButton(
     AuthenticationPressedNextButton event,
     Emitter<AuthenticationState> emit,
-  ) {
-    // emit()
-  }
+  ) {}
 
   Future<void> _onSubscriptionRequested(
     AuthenticationSubscriptionRequested event,
