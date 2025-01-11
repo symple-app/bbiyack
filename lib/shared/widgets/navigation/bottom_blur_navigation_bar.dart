@@ -57,7 +57,7 @@ class BottomBlurNavigationBar extends StatelessWidget {
           unselectedIconTheme: const IconThemeData(size: 24),
           unselectedLabelStyle: CustomTextStyle.of(
             fontWeight: FontWeight.w500,
-          ).caption2,
+          ).caption,
 
           //items
           items: [

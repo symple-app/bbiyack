@@ -41,7 +41,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
               style: isLarge
                   ? CustomTextStyle.of(
                       fontColor: ColorTheme.of(context).label.normal,
-                    ).heading
+                    ).heading.mobile.xl
                   : CustomTextStyle.of(
                       fontColor: ColorTheme.of(context).label.normal,
                     ).title,
