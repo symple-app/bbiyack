@@ -5,6 +5,10 @@ import 'package:hackerton_gdg/shared/widgets/button/bottom_button.dart';
 class SelectCharacterPage extends StatefulWidget {
   const SelectCharacterPage({Key? key}) : super(key: key);
 
+  static Route<void> route() {
+    return MaterialPageRoute(builder: (_) => const SelectCharacterPage());
+  }
+
   @override
   _SelectCharacterPageState createState() => _SelectCharacterPageState();
 }

@@ -65,7 +65,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBV0g2RD9vG6S1EYB3-Eo7nj7yH0wcu1tU',
-    appId: '1:941708243242:ios:d240945c03a158358eae53',
+    appId: '1:941708243242:ios:c947d46575c0c05c8eae53',
     messagingSenderId: '941708243242',
     projectId: 'symple-bbiyack',
     storageBucket: 'symple-bbiyack.firebasestorage.app',

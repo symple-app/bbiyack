@@ -109,10 +109,6 @@ class AuthenticationUser extends Equatable {
       AuthenticationUser.fromMap(json.decode(source));
 
   bool hasNullFields() {
-    return uid == null ||
-        nickname == null ||
-        gender == null ||
-        birthYear == null ||
-        phoneNumber == null;
+    return uid == null || nickname == null || phoneNumber == null;
   }
 }

@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackerton_gdg/features/authentication/models/authentication.model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationRepository {
   final _controller = StreamController<AuthenticationStatus>();
 
-  static const String _userKey = 'user';
+  static const String _userKey = 'userId';
 
   Stream<AuthenticationStatus> get status async* {
     await Future<void>.delayed(const Duration(seconds: 1));
@@ -29,18 +30,39 @@ class AuthenticationRepository {
   }
 
   Future<void> saveAuthenticationUser(AuthenticationUser user) async {
+    final database = FirebaseFirestore.instance;
+    final response = await database.collection("users").add(user.toMap());
+
+    print('Saved to Firestore userId is : ${response.id}');
+
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(_userKey, user.toJson());
+    prefs.setString(_userKey, response.id);
   }
 
   Future<AuthenticationUser?> getAuthenticationUser() async {
+    final database = FirebaseFirestore.instance;
+
     await Future.delayed(const Duration(milliseconds: 300));
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? authenticationJsonUser = prefs.getString(_userKey);
+    final String? userId = prefs.getString(_userKey);
 
-    if (authenticationJsonUser != null) {
-      return AuthenticationUser.fromJson(authenticationJsonUser);
+    if (userId != null) {
+      final userDataResponse =
+          await database.collection("users").doc(userId).get();
+
+      if (userDataResponse.exists) {
+        final userDataToMap = userDataResponse.data();
+
+        print(userDataToMap);
+
+        final userData = AuthenticationUser.fromMap(userDataToMap!);
+
+        return userData;
+      }
+
+      return null;
+      // return AuthenticationUser.fromJson(authenticationJsonUser);
     } else {
       return null;
     }

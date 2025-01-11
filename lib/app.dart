@@ -7,6 +7,7 @@ import 'package:hackerton_gdg/features/authentication/presentation/pages/gender_
 import 'package:hackerton_gdg/features/authentication/presentation/pages/nickname_page.dart';
 import 'package:hackerton_gdg/features/authentication/presentation/pages/phone_auth_page.dart';
 import 'package:hackerton_gdg/features/authentication/presentation/pages/phone_verify_page.dart';
+import 'package:hackerton_gdg/features/character/presentation/pages/select_character_page.dart';
 import 'package:hackerton_gdg/features/home/presentation/pages/home_page.dart';
 import 'package:hackerton_gdg/shared/repositories/user_repository.dart';
 import 'package:hackerton_gdg/shared/utils/observer_util.dart';
@@ -100,7 +101,7 @@ class _AppViewState extends State<AppView> {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil(
-                  HomePage.route(),
+                  SelectCharacterPage.route(),
                   (route) => false,
                 );
               case AuthenticationStatus.unauthenticated:
