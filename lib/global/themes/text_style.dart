@@ -64,6 +64,8 @@ class HeadingMobileTextStyle {
       style.mobile_2xl.copyWith(color: fontColor ?? defaultTextColor);
   TextStyle get xl =>
       style.mobile_xl.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get lg =>
+      style.mobile_lg.copyWith(color: fontColor ?? defaultTextColor);
 }
 
 /// Body Text Styles
@@ -74,7 +76,9 @@ class Body {
 
   TextStyleScheme get style => sympleTextStyle;
 
-  BodyLgTextStyle get mobile => BodyLgTextStyle(fontColor);
+  BodyLgTextStyle get lg => BodyLgTextStyle(fontColor);
+  BodyMdTextStyle get md => BodyMdTextStyle(fontColor);
+  BodySmTextStyle get sm => BodySmTextStyle(fontColor);
 }
 
 class BodyLgTextStyle {

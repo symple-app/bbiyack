@@ -9,7 +9,8 @@ import 'package:hackerton_gdg/features/authentication/presentation/pages/phone_a
 import 'package:hackerton_gdg/features/authentication/presentation/pages/phone_verify_page.dart';
 import 'package:hackerton_gdg/features/character/presentation/pages/select_character_page.dart';
 import 'package:hackerton_gdg/features/home/presentation/pages/home_page.dart';
-import 'package:hackerton_gdg/shared/provider/mentor_provider.dart';
+import 'package:hackerton_gdg/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:hackerton_gdg/shared/provider/mentor/mentor_provider.dart';
 import 'package:hackerton_gdg/shared/repositories/user_repository.dart';
 import 'package:hackerton_gdg/shared/utils/observer_util.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
@@ -138,6 +139,7 @@ class _AppViewState extends State<AppView> {
       case AuthenticationStep.onboarding:
         _navigator.push(OnboardingPage.route());
         break;
+
       case AuthenticationStep.nickname:
         _navigator.push(NicknamePage.route());
         break;

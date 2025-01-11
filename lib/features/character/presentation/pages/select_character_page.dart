@@ -1,10 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:hackerton_gdg/features/character/presentation/pages/counsel_character_page.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
 import 'package:hackerton_gdg/global/themes/text_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackerton_gdg/shared/models/mentor_model.dart';
-import 'package:hackerton_gdg/shared/provider/mentor_provider.dart';
+import 'package:hackerton_gdg/shared/provider/mentor/mentor_provider.dart';
 import 'package:hackerton_gdg/shared/widgets/button/bottom_button.dart';
 
 class SelectCharacterPage extends StatefulWidget {
@@ -62,10 +63,11 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
               return Builder(
                 builder: (BuildContext context) {
                   return SizedBox(
-                      child: Image.asset(
-                    'assets/new/character/${mentor.assetName}_ggio_card.png',
-                    fit: BoxFit.fitHeight,
-                  ));
+                    child: Image.asset(
+                      'assets/new/character/${mentor.cardAsset}_ggio_card.png',
+                      fit: BoxFit.fitHeight,
+                    ),
+                  );
                 },
               );
             }).toList(),
@@ -76,7 +78,7 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
                       fontColor:
                           ColorTheme.of(context).static.black.withOpacity(0.6))
                   .body
-                  .mobile
+                  .lg
                   .medium),
           SizedBox(height: 12),
           BottomButton(
@@ -85,6 +87,8 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
               context
                   .read<MentorProvider>()
                   .selectMentor(mentorList[_currentIndex]);
+
+              Navigator.push(context, CounselCharacterPage.route());
             },
           ),
         ],

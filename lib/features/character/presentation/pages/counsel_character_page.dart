@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackerton_gdg/features/character/utils/highlight_text.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
+import 'package:hackerton_gdg/global/themes/text_style.dart';
+import 'package:hackerton_gdg/shared/models/mentor_model.dart';
+import 'package:hackerton_gdg/shared/provider/mentor/mentor_provider.dart';
+import 'package:hackerton_gdg/shared/services/chatgpt_service.dart';
 import 'package:hackerton_gdg/shared/widgets/button/bottom_button.dart';
 
 class CounselCharacterPage extends StatefulWidget {
   const CounselCharacterPage({Key? key}) : super(key: key);
+
+  static Route<void> route() {
+    return MaterialPageRoute(builder: (_) => const CounselCharacterPage());
+  }
 
   @override
   _CounselCharacterPageState createState() => _CounselCharacterPageState();
 }
 
 class _CounselCharacterPageState extends State<CounselCharacterPage> {
-  String character = 'assets/new/character/one_ggio.png';
   int currentIndex = 0;
+  String _userInput = "";
+  String _userResponseText = "";
 
   @override
   void initState() {
@@ -20,82 +31,120 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMentorNameOne = context.read<MentorProvider>().isMentorNameOne();
+    Mentor selectedMentor = context.read<MentorProvider>().selectedMentor;
+
     return Scaffold(
+      backgroundColor: Color(0xffDBDCDF),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Color(0xFFDBDCDF),
-        foregroundColor: ColorTheme.of(context).inverse.background,
-        title: Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: Stack(
-            children: [
-              Row(children: [
-                ProcessCircleComponent(offset: 0, isOn: false),
-                ProcessConnectRectComponent(
-                    offset: -2, isOn: currentIndex >= 1),
-                ProcessCircleComponent(offset: -4, isOn: false),
-                ProcessConnectRectComponent(
-                    offset: -6, isOn: currentIndex >= 2),
-                ProcessCircleComponent(offset: -8, isOn: false),
-                ProcessConnectRectComponent(
-                    offset: -10, isOn: currentIndex >= 3),
-                ProcessCircleComponent(offset: -12, isOn: false),
-                ProcessConnectRectComponent(
-                    offset: -14, isOn: currentIndex >= 4),
-                ProcessCircleComponent(offset: -16, isOn: false),
-              ]),
-              // 진행
-              Row(children: [
-                if (currentIndex >= 0)
-                  ProcessCircleComponent(offset: 0, isOn: currentIndex >= 0),
-                if (currentIndex >= 1)
-                  ProcessConnectRectComponent(
-                      offset: -2, isOn: currentIndex >= 1),
-                if (currentIndex >= 1)
-                  ProcessCircleComponent(offset: -4, isOn: currentIndex >= 1),
-                if (currentIndex >= 2)
-                  ProcessConnectRectComponent(
-                      offset: -6, isOn: currentIndex >= 2),
-                if (currentIndex >= 2)
-                  ProcessCircleComponent(offset: -8, isOn: currentIndex >= 2),
-                if (currentIndex >= 3)
-                  ProcessConnectRectComponent(
-                      offset: -10, isOn: currentIndex >= 3),
-                if (currentIndex >= 3)
-                  ProcessCircleComponent(offset: -12, isOn: currentIndex >= 3),
-                if (currentIndex >= 4)
-                  ProcessConnectRectComponent(
-                      offset: -14, isOn: currentIndex >= 4),
-                if (currentIndex >= 4)
-                  ProcessCircleComponent(offset: -16, isOn: currentIndex >= 4),
-              ]),
+        backgroundColor: Colors.transparent,
+      ),
+      // appBar: AppBar(
+      //   backgroundColor: selectedMentor.backgroundColor,
+      //   foregroundColor: ColorTheme.of(context).inverse.background,
+      //   title: Padding(
+      //     padding: EdgeInsets.only(left: 10),
+      //     child: Stack(
+      //       children: [
+      //         Row(children: [
+      //           ProcessCircleComponent(offset: 0, isOn: false),
+      //           ProcessConnectRectComponent(
+      //               offset: -2, isOn: currentIndex >= 1),
+      //           ProcessCircleComponent(offset: -4, isOn: false),
+      //           ProcessConnectRectComponent(
+      //               offset: -6, isOn: currentIndex >= 2),
+      //           ProcessCircleComponent(offset: -8, isOn: false),
+      //           ProcessConnectRectComponent(
+      //               offset: -10, isOn: currentIndex >= 3),
+      //           ProcessCircleComponent(offset: -12, isOn: false),
+      //           ProcessConnectRectComponent(
+      //               offset: -14, isOn: currentIndex >= 4),
+      //           ProcessCircleComponent(offset: -16, isOn: false),
+      //         ]),
+      //         // 진행
+      //         Row(children: [
+      //           if (currentIndex >= 0)
+      //             ProcessCircleComponent(offset: 0, isOn: currentIndex >= 0),
+      //           if (currentIndex >= 1)
+      //             ProcessConnectRectComponent(
+      //                 offset: -2, isOn: currentIndex >= 1),
+      //           if (currentIndex >= 1)
+      //             ProcessCircleComponent(offset: -4, isOn: currentIndex >= 1),
+      //           if (currentIndex >= 2)
+      //             ProcessConnectRectComponent(
+      //                 offset: -6, isOn: currentIndex >= 2),
+      //           if (currentIndex >= 2)
+      //             ProcessCircleComponent(offset: -8, isOn: currentIndex >= 2),
+      //           if (currentIndex >= 3)
+      //             ProcessConnectRectComponent(
+      //                 offset: -10, isOn: currentIndex >= 3),
+      //           if (currentIndex >= 3)
+      //             ProcessCircleComponent(offset: -12, isOn: currentIndex >= 3),
+      //           if (currentIndex >= 4)
+      //             ProcessConnectRectComponent(
+      //                 offset: -14, isOn: currentIndex >= 4),
+      //           if (currentIndex >= 4)
+      //             ProcessCircleComponent(offset: -16, isOn: currentIndex >= 4),
+      //         ]),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              selectedMentor.backgroundColor,
+              Colors.white,
             ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(color: Color(0xFFDBDCDF)),
         child: SafeArea(
           child: Column(
             children: [
               Row(
                 children: [
                   Spacer(),
-                  Transform.rotate(angle: -0.1, child: Image.asset(character)),
+                  isMentorNameOne
+                      ? Transform.rotate(
+                          angle: -0.1,
+                          child: Image.asset(selectedMentor.characterAsset),
+                        )
+                      : Image.asset(selectedMentor.characterAsset),
                   SizedBox(width: 12),
                   Container(
-                    width: 200, // 사각형 너비
-                    height: 100, // 사각형 높이
-                    decoration: BoxDecoration(
-                      color: Colors.white, // 배경 색상
-                      borderRadius: BorderRadius.circular(16), // 모서리 둥글게
+                    constraints: BoxConstraints(
+                      minWidth: 218,
                     ),
-                    child: Center(child: Text("오늘은 무슨 일이 있었니?\n구체적으로 말해봐~")),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.8), // 배경 색상
+                      borderRadius: BorderRadius.circular(16), // 모서리 둥글게
+                      border: Border.all(
+                          color: Colors.black.withValues(alpha: 0.12),
+                          width: 1),
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      _userResponseText == ""
+                          ? selectedMentor.summaryText
+                          : "이런 부분은 다시 생각해\n보는 게 좋을 것 같아 :)",
+                      style: CustomTextStyle.of(
+                        fontColor: Color(0xff000000).withValues(alpha: 0.8),
+                      ).body.lg.semibold,
+                    ),
                   ),
                   Spacer(),
                 ],
               ),
-              currentIndex == 5
-                  ? Padding(
+              currentIndex == 4
+                  ? CounselResultComponent(
+                      userInputText: _userInput,
+                      responseText: _userResponseText,
+                    )
+                  : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: TextField(
                         decoration: InputDecoration(
@@ -115,14 +164,26 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
                             fontSize: 16, color: Colors.black), // 입력 텍스트 스타일
                         maxLines: 8, // 한 줄 입력
                         textAlign: TextAlign.start, // 텍스트 가운데 정렬
+                        onChanged: (value) {
+                          setState(() {
+                            _userInput = value;
+                          });
+                        },
                       ),
-                    )
-                  : CounselResultComponent(),
+                    ),
               Spacer(),
               BottomButton(
                 title: "다음으로",
-                color: Color(0xFFFFB100),
-                foregroundColor: Colors.black,
+                color: selectedMentor.primaryColor,
+                foregroundColor: selectedMentor.textColor ?? Colors.white,
+                onTap: () async {
+                  String responseText = await checkKoreanProfanity(_userInput);
+
+                  setState(() {
+                    currentIndex = 4;
+                    _userResponseText = responseText;
+                  });
+                },
               )
             ],
           ),
@@ -141,6 +202,11 @@ class ProcessCircleComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor =
+        context.read<MentorProvider>().getProcessConnectRectBackgroundColor();
+    Color activateColor =
+        context.read<MentorProvider>().getProcessConnectRectActivateColor();
+
     double finalOffset = offset;
 
     return Transform.translate(
@@ -149,7 +215,7 @@ class ProcessCircleComponent extends StatelessWidget {
         width: 24.0, // 원의 너비
         height: 24.0, // 원의 높이
         decoration: BoxDecoration(
-          color: isOn ? Color(0xFFFFB100) : Colors.white, // 원의 색상
+          color: isOn ? activateColor : backgroundColor, // 원의 색상
           shape: BoxShape.circle, // 원형으로 설정
         ),
       ),
@@ -166,6 +232,11 @@ class ProcessConnectRectComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor =
+        context.read<MentorProvider>().getProcessConnectRectBackgroundColor();
+    Color activateColor =
+        context.read<MentorProvider>().getProcessConnectRectActivateColor();
+
     double finalOffset = offset;
 
     return Transform.translate(
@@ -174,7 +245,7 @@ class ProcessConnectRectComponent extends StatelessWidget {
         width: 40.0, // 원의 너비
         height: 8.0, // 원의 높이
         decoration: BoxDecoration(
-          color: isOn ? Color(0xFFFFB100) : Colors.white,
+          color: isOn ? activateColor : backgroundColor,
         ),
       ),
     );
@@ -182,7 +253,14 @@ class ProcessConnectRectComponent extends StatelessWidget {
 }
 
 class CounselResultComponent extends StatelessWidget {
-  const CounselResultComponent({Key? key}) : super(key: key);
+  final String userInputText;
+  final String responseText;
+
+  const CounselResultComponent({
+    super.key,
+    required this.userInputText,
+    required this.responseText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -191,23 +269,43 @@ class CounselResultComponent extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: double.infinity, // 사각형 너비
-            height: 100, // 사각형 높이
+            width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white, // 배경 색상
               borderRadius: BorderRadius.circular(16), // 모서리 둥글게
             ),
-            child: Center(child: Text("해피해피해피")),
+            padding: EdgeInsets.all(24),
+            child: RichText(
+              text: TextSpan(
+                style: CustomTextStyle.of().heading.mobile.lg,
+                children: highlightText(userInputText, responseText),
+              ),
+            ),
           ),
           SizedBox(height: 12),
           Container(
             width: double.infinity, // 사각형 너비
-            height: 132, // 사각형 높이
             decoration: BoxDecoration(
               color: Colors.white, // 배경 색상
               borderRadius: BorderRadius.circular(16), // 모서리 둥글게
             ),
-            child: Center(child: Text("해피해피해피")),
+            padding: EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "개선필요",
+                  style: CustomTextStyle.of(
+                    fontColor: Color(0xffEF4444),
+                  ).body.md.semibold,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "[$responseText] 무슨 말이죠?\n다시 생각하세요.",
+                  style: CustomTextStyle.of().body.lg.semibold,
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 8),
           Row(
@@ -234,7 +332,7 @@ class CounselResultComponent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(99),
                   ),
                   child: Center(
-                    child: Text("1 / 4"),
+                    child: Text("1 / 1"),
                   ),
                 ),
               ),
