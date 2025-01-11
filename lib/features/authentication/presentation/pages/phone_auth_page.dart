@@ -87,32 +87,36 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
 
         String parsedPhoneNumber = convertPhoneNumber(phoneNumber);
 
-        await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: parsedPhoneNumber,
-          verificationCompleted: (PhoneAuthCredential credential) {
-            debugPrint("Credential : $credential");
-          },
-          verificationFailed: (FirebaseAuthException e) {
-            debugPrint("Error! : $e");
-          },
-          codeSent: (String verificationId, int? resendToken) {
-            debugPrint("Verification  ID : $verificationId");
+        try {
+          await FirebaseAuth.instance.verifyPhoneNumber(
+            phoneNumber: parsedPhoneNumber,
+            verificationCompleted: (PhoneAuthCredential credential) {
+              debugPrint("Credential : $credential");
+            },
+            verificationFailed: (FirebaseAuthException e) {
+              debugPrint("Error! : $e");
+            },
+            codeSent: (String verificationId, int? resendToken) {
+              debugPrint("Verification  ID : $verificationId");
 
-            context
-                .read<AuthenticationBloc>()
-                .add(AuthenticationVerificationId(verificationId));
+              context
+                  .read<AuthenticationBloc>()
+                  .add(AuthenticationVerificationId(verificationId));
 
-            context.read<AuthenticationBloc>().add(
-                  AuthenticationFieldChanged(
-                    FieldType.phone,
-                    phoneNumber,
-                  ),
-                );
-          },
-          codeAutoRetrievalTimeout: (String verificationId) {
-            debugPrint(verificationId);
-          },
-        );
+              context.read<AuthenticationBloc>().add(
+                    AuthenticationFieldChanged(
+                      FieldType.phone,
+                      phoneNumber,
+                    ),
+                  );
+            },
+            codeAutoRetrievalTimeout: (String verificationId) {
+              debugPrint(verificationId);
+            },
+          );
+        } catch (e) {
+          print('Firebase Auth verify phone number error : $e');
+        }
 
         setState(() {
           _isLoading = false;

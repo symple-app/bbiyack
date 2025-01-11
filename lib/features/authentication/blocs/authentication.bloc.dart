@@ -123,7 +123,7 @@ class AuthenticationBloc
 
     switch (event.fieldType) {
       case FieldType.nickname:
-        step = AuthenticationStep.genderAndBirthYear;
+        step = AuthenticationStep.phoneNumber;
         break;
       case FieldType.genderAndBirthYear:
         step = AuthenticationStep.phoneNumber;
