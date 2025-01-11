@@ -128,12 +128,6 @@ class _AppViewState extends State<AppView> {
       BuildContext context, AuthenticationState state) {
     switch (state.step) {
       case AuthenticationStep.onboarding:
-        _navigator.pushAndRemoveUntil(
-          OnboardingPage.route(),
-          (route) => false,
-        );
-        break;
-
       case AuthenticationStep.nickname:
         _navigator.push(NicknamePage.route());
         break;
