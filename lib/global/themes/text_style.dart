@@ -1,5 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:hackerton_gdg/global/themes/color_palette.dart';
+
+Color defaultTextColor =
+    ColorPalette.coolNeutral22.withOpacity(ColorPalette.opacity88);
 
 class CustomTextStyle {
   final FontWeight? fontWeight;
@@ -7,29 +12,11 @@ class CustomTextStyle {
 
   CustomTextStyle.of({this.fontWeight = FontWeight.w600, this.fontColor});
 
-  // labelNetural
-  Color defaultTextColor =
-      ColorPalette.coolNeutral22.withOpacity(ColorPalette.opacity88);
-
   TextStyleScheme get style => sympleTextStyle;
 
-  TextStyle get display1 => style.display1.copyWith(fontWeight: fontWeight);
-  TextStyle get display2 => style.display2.copyWith(fontWeight: fontWeight);
-  TextStyle get title1 => style.title1.copyWith(fontWeight: fontWeight);
-  TextStyle get title2 => style.title2.copyWith(fontWeight: fontWeight);
-  TextStyle get title3 => style.title3.copyWith(fontWeight: fontWeight);
-  TextStyle get heading1 => style.heading1.copyWith(fontWeight: fontWeight);
-  TextStyle get heading2 => style.heading2.copyWith(fontWeight: fontWeight);
-  TextStyle get headline1 => style.headline1.copyWith(fontWeight: fontWeight);
-  TextStyle get headline2 => style.headline2.copyWith(fontWeight: fontWeight);
-  Label1 get label1 => Label1(style, fontWeight);
-  TextStyle get label2 => style.label2.copyWith(fontWeight: fontWeight);
-  TextStyle get caption1 => style.caption1.copyWith(fontWeight: fontWeight);
-  TextStyle get caption2 => style.caption2.copyWith(fontWeight: fontWeight);
-
   //symple typography
-  TextStyle get heading =>
-      style.heading.copyWith(color: fontColor ?? defaultTextColor);
+  // TextStyle get heading =>
+  //     style.heading.copyWith(color: fontColor ?? defaultTextColor);
   TextStyle get title =>
       style.title.copyWith(color: fontColor ?? defaultTextColor);
   TextStyle get subTitle =>
@@ -46,58 +33,100 @@ class CustomTextStyle {
       style.caption.copyWith(color: fontColor ?? defaultTextColor);
   TextStyle get undertext =>
       style.undertext.copyWith(color: fontColor ?? defaultTextColor);
+
+  Heading get heading => Heading(fontColor);
+  Heading get body => Heading(fontColor);
 }
 
-class Body1 {
-  final TextStyleScheme style;
-  final FontWeight? fontWeight;
+/// Heading Text Styles
+class Heading {
+  Color? fontColor;
 
-  Body1(this.style, this.fontWeight);
+  Heading(this.fontColor);
 
-  TextStyle get normal => style.body1Normal.copyWith(fontWeight: fontWeight);
-  TextStyle get reading => style.body1Reading.copyWith(fontWeight: fontWeight);
+  TextStyleScheme get style => sympleTextStyle;
+
+  HeadingMobileTextStyle get mobile => HeadingMobileTextStyle(fontColor);
 }
 
-class Body2 {
-  final TextStyleScheme style;
-  final FontWeight? fontWeight;
+class HeadingMobileTextStyle {
+  Color? fontColor;
 
-  Body2(this.style, this.fontWeight);
+  HeadingMobileTextStyle(this.fontColor);
 
-  TextStyle get normal => style.body2Normal.copyWith(fontWeight: fontWeight);
-  TextStyle get reading => style.body2Reading.copyWith(fontWeight: fontWeight);
+  TextStyleScheme get style => sympleTextStyle;
+
+  TextStyle get xl4 =>
+      style.mobile_4xl.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get xl3 =>
+      style.mobile_3xl.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get xl2 =>
+      style.mobile_2xl.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get xl =>
+      style.mobile_xl.copyWith(color: fontColor ?? defaultTextColor);
 }
 
-class Label1 {
-  final TextStyleScheme style;
-  final FontWeight? fontWeight;
+/// Body Text Styles
+class Body {
+  Color? fontColor;
 
-  Label1(this.style, this.fontWeight);
+  Body(this.fontColor);
 
-  TextStyle get normal => style.label1Normal.copyWith(fontWeight: fontWeight);
-  TextStyle get reading => style.label1Reading.copyWith(fontWeight: fontWeight);
+  TextStyleScheme get style => sympleTextStyle;
+
+  BodyLgTextStyle get mobile => BodyLgTextStyle(fontColor);
+}
+
+class BodyLgTextStyle {
+  Color? fontColor;
+
+  BodyLgTextStyle(this.fontColor);
+
+  TextStyleScheme get style => sympleTextStyle;
+
+  TextStyle get semibold =>
+      style.lg_semibold.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get medium =>
+      style.lg_medium.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get regular =>
+      style.lg_regular.copyWith(color: fontColor ?? defaultTextColor);
+}
+
+class BodyMdTextStyle {
+  Color? fontColor;
+
+  BodyMdTextStyle(this.fontColor);
+
+  TextStyleScheme get style => sympleTextStyle;
+
+  TextStyle get semibold =>
+      style.md_semibold.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get medium =>
+      style.md_medium.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get regular =>
+      style.md_regular.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get underline =>
+      style.md_underline.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get code =>
+      style.md_code.copyWith(color: fontColor ?? defaultTextColor);
+}
+
+class BodySmTextStyle {
+  Color? fontColor;
+
+  BodySmTextStyle(this.fontColor);
+
+  TextStyleScheme get style => sympleTextStyle;
+
+  TextStyle get semibold =>
+      style.sm_semibold.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get medium =>
+      style.sm_medium.copyWith(color: fontColor ?? defaultTextColor);
+  TextStyle get regular =>
+      style.sm_regular.copyWith(color: fontColor ?? defaultTextColor);
 }
 
 class TextStyleScheme {
-  TextStyle display1;
-  TextStyle display2;
-  TextStyle title1;
-  TextStyle title2;
-  TextStyle title3;
-  TextStyle heading1;
-  TextStyle heading2;
-  TextStyle headline1;
-  TextStyle headline2;
-  TextStyle body1Normal;
-  TextStyle body1Reading;
-  TextStyle body2Normal;
-  TextStyle body2Reading;
-  TextStyle label1Normal;
-  TextStyle label1Reading;
-  TextStyle label2;
-  TextStyle caption1;
-  TextStyle caption2;
-
   TextStyle heading;
   TextStyle title;
   TextStyle subTitle;
@@ -106,25 +135,25 @@ class TextStyleScheme {
   TextStyle caption;
   TextStyle undertext;
 
+  TextStyle mobile_4xl;
+  TextStyle mobile_3xl;
+  TextStyle mobile_2xl;
+  TextStyle mobile_xl;
+  TextStyle mobile_lg;
+  TextStyle mobile_md;
+  TextStyle lg_semibold;
+  TextStyle lg_medium;
+  TextStyle lg_regular;
+  TextStyle md_semibold;
+  TextStyle md_medium;
+  TextStyle md_regular;
+  TextStyle md_underline;
+  TextStyle md_code;
+  TextStyle sm_semibold;
+  TextStyle sm_medium;
+  TextStyle sm_regular;
+
   TextStyleScheme({
-    required this.display1,
-    required this.display2,
-    required this.title1,
-    required this.title2,
-    required this.title3,
-    required this.heading1,
-    required this.heading2,
-    required this.headline1,
-    required this.headline2,
-    required this.body1Normal,
-    required this.body1Reading,
-    required this.body2Normal,
-    required this.body2Reading,
-    required this.label1Normal,
-    required this.label1Reading,
-    required this.label2,
-    required this.caption1,
-    required this.caption2,
     required this.heading,
     required this.title,
     required this.subTitle,
@@ -132,82 +161,27 @@ class TextStyleScheme {
     required this.body2,
     required this.caption,
     required this.undertext,
+    required this.mobile_4xl,
+    required this.mobile_3xl,
+    required this.mobile_2xl,
+    required this.mobile_xl,
+    required this.mobile_lg,
+    required this.mobile_md,
+    required this.lg_semibold,
+    required this.lg_medium,
+    required this.lg_regular,
+    required this.md_semibold,
+    required this.md_medium,
+    required this.md_regular,
+    required this.md_underline,
+    required this.md_code,
+    required this.sm_semibold,
+    required this.sm_medium,
+    required this.sm_regular,
   });
 }
 
 final TextStyleScheme sympleTextStyle = TextStyleScheme(
-  display1: const TextStyle(
-    fontSize: 56,
-    height: 72 / 56,
-  ),
-  display2: const TextStyle(
-    fontSize: 40,
-    height: 52 / 40,
-  ),
-  title1: const TextStyle(
-    fontSize: 36,
-    height: 48 / 36,
-  ),
-  title2: const TextStyle(
-    fontSize: 28,
-    height: 38 / 28,
-  ),
-  title3: const TextStyle(
-    fontSize: 24,
-    height: 32 / 24,
-  ),
-  heading1: const TextStyle(
-    fontSize: 22,
-    height: 30 / 22,
-  ),
-  heading2: const TextStyle(
-    fontSize: 20,
-    height: 28 / 20,
-  ),
-  headline1: const TextStyle(
-    fontSize: 18,
-    height: 26 / 18,
-  ),
-  headline2: const TextStyle(
-    fontSize: 17,
-    height: 24 / 17,
-  ),
-  body1Normal: const TextStyle(
-    fontSize: 16,
-    height: 24 / 16,
-  ),
-  body1Reading: const TextStyle(
-    fontSize: 16,
-    height: 26 / 16,
-  ),
-  body2Normal: const TextStyle(
-    fontSize: 15,
-    height: 22 / 15,
-  ),
-  body2Reading: const TextStyle(
-    fontSize: 15,
-    height: 24 / 15,
-  ),
-  label1Normal: const TextStyle(
-    fontSize: 14,
-    height: 20 / 14,
-  ),
-  label1Reading: const TextStyle(
-    fontSize: 14,
-    height: 22 / 14,
-  ),
-  label2: const TextStyle(
-    fontSize: 13,
-    height: 18 / 13,
-  ),
-  caption1: const TextStyle(
-    fontSize: 12,
-    height: 16 / 12,
-  ),
-  caption2: const TextStyle(
-    fontSize: 11,
-    height: 14 / 11,
-  ),
   heading: const TextStyle(
     fontSize: 26.0,
     fontWeight: FontWeight.w600, // Semibold
@@ -249,6 +223,101 @@ final TextStyleScheme sympleTextStyle = TextStyleScheme(
     fontWeight: FontWeight.w600, // Semibold
     height: 16 / 11, // Line height is 16px
     letterSpacing: -2 / 11, // -2% letter spacing
+  ),
+
+  // mobile style
+  mobile_4xl: const TextStyle(
+    fontSize: 40.0,
+    fontWeight: FontWeight.w700,
+    height: 1.4,
+  ),
+  mobile_3xl: const TextStyle(
+    fontSize: 32.0,
+    fontWeight: FontWeight.w700,
+    height: 1.4,
+  ),
+  mobile_2xl: const TextStyle(
+    fontSize: 28.0,
+    fontWeight: FontWeight.w600,
+    height: 1.4,
+  ),
+  mobile_xl: const TextStyle(
+    fontSize: 24.0,
+    fontWeight: FontWeight.w600,
+    height: 1.4,
+  ),
+  mobile_lg: const TextStyle(
+    fontSize: 20.0,
+    fontWeight: FontWeight.w600,
+    height: 1.4,
+  ),
+  mobile_md: const TextStyle(
+    fontSize: 18.0,
+    fontWeight: FontWeight.w600,
+    height: 1.4,
+  ),
+
+  //lg style
+  lg_semibold: const TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.w600,
+    height: 1.6,
+  ),
+  lg_medium: const TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.w500,
+    height: 1.6,
+  ),
+  lg_regular: const TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.w400,
+    height: 1.6,
+  ),
+
+  // md style
+  md_semibold: const TextStyle(
+    fontSize: 14.0,
+    fontWeight: FontWeight.w600,
+    height: 1.6,
+  ),
+  md_medium: const TextStyle(
+    fontSize: 14.0,
+    fontWeight: FontWeight.w500,
+    height: 1.6,
+  ),
+  md_regular: const TextStyle(
+    fontSize: 14.0,
+    fontWeight: FontWeight.w400,
+    height: 1.6,
+  ),
+  md_underline: const TextStyle(
+    // TODO: underline style add
+    fontSize: 14.0,
+    fontWeight: FontWeight.w700,
+    height: 1.6,
+  ),
+  md_code: const TextStyle(
+    // TODO: code style add
+    fontSize: 14.0,
+    fontWeight: FontWeight.w700,
+    height: 1.6,
+  ),
+
+  //sm style
+  sm_semibold: const TextStyle(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w600,
+    height: 1.6,
+  ),
+  sm_medium: const TextStyle(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w500,
+    height: 1.6,
+  ),
+  sm_regular: const TextStyle(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w400,
+    height: 1.6,
   ),
 );
 

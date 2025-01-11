@@ -10,14 +10,9 @@ void main() async {
 
   await dotenv.load(fileName: ".env");
 
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    print("Firebase initialized successfully!");
-  } catch (e) {
-    print("Firebase initialization failed: $e");
-  }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await initializeDateFormatting('ko_KR', null);
 
