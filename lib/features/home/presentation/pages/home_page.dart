@@ -47,7 +47,10 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 80,
               ),
-              Image.asset("assets/new/character/one_ggio.png"),
+              Container(
+                  width: 200,
+                  height: 200,
+                  child: Image.asset("assets/new/character/bbiyack.png")),
               SizedBox(height: 30),
               Container(
                 decoration: BoxDecoration(
@@ -57,7 +60,7 @@ class HomePage extends StatelessWidget {
                 height: 52,
                 child: Center(
                     child: Text(
-                  "2lv - 삐약이",
+                  "lv.1 - 삐약이",
                   style: CustomTextStyle.of(fontColor: Colors.white)
                       .heading
                       .mobile
@@ -84,49 +87,85 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                  top: 10,
-                                  right: 10,
-                                  child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 4, horizontal: 8),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          color: Color(0xFFEAB308)
-                                              .withOpacity(0.16)),
-                                      child: Text(
-                                        "+20P",
-                                        style: CustomTextStyle.of(
-                                                fontColor: Color(0xFFCA8A04))
-                                            .body
-                                            .sm
-                                            .semibold,
-                                      ))),
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                        "assets/new/emoji/record.svg"),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      "기록하기",
-                                      style: CustomTextStyle.of(
-                                              fontColor: ColorTheme.of(context)
-                                                  .static
-                                                  .black
-                                                  .withOpacity(0.8))
-                                          .heading
-                                          .mobile
-                                          .md,
+                          child: InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("죄송합니다 ㅜㅜ"),
+                                      content:
+                                          Text("기능이 준비중입니다!!!ㅢ!ㅏ!ㅏ1ㅏ1ㅏ!!!."),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // 다이얼로그 닫기
+                                            // 추가 작업 가능
+                                          },
+                                          child: Text("봐주기"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // 다이얼로그 닫기
+                                            // 추가 작업 가능
+                                          },
+                                          child: Text("봐주기"),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Expanded(
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                      top: 10,
+                                      right: 10,
+                                      child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 4, horizontal: 8),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              color: Color(0xFFEAB308)
+                                                  .withOpacity(0.16)),
+                                          child: Text(
+                                            "+20P",
+                                            style: CustomTextStyle.of(
+                                                    fontColor:
+                                                        Color(0xFFCA8A04))
+                                                .body
+                                                .sm
+                                                .semibold,
+                                          ))),
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                            "assets/new/emoji/record.svg"),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          "기록하기",
+                                          style: CustomTextStyle.of(
+                                                  fontColor:
+                                                      ColorTheme.of(context)
+                                                          .static
+                                                          .black
+                                                          .withOpacity(0.8))
+                                              .heading
+                                              .mobile
+                                              .md,
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                         Padding(
@@ -134,49 +173,85 @@ class HomePage extends StatelessWidget {
                           child: VerticalDivider(width: 0),
                         ),
                         Expanded(
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                  top: 10,
-                                  right: 10,
-                                  child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 4, horizontal: 8),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          color: Color(0xFFEAB308)
-                                              .withOpacity(0.16)),
-                                      child: Text(
-                                        "+20P",
-                                        style: CustomTextStyle.of(
-                                                fontColor: Color(0xFFCA8A04))
-                                            .body
-                                            .sm
-                                            .semibold,
-                                      ))),
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                        "assets/new/emoji/game.svg"),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      "퀘스트하기",
-                                      style: CustomTextStyle.of(
-                                              fontColor: ColorTheme.of(context)
-                                                  .static
-                                                  .black
-                                                  .withOpacity(0.8))
-                                          .heading
-                                          .mobile
-                                          .md,
+                          child: InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("죄송합니다 ㅜㅜ"),
+                                      content:
+                                          Text("기능이 준비중입니다!!!ㅢ!ㅏ!ㅏ1ㅏ1ㅏ!!!."),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // 다이얼로그 닫기
+                                            // 추가 작업 가능
+                                          },
+                                          child: Text("봐주기"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // 다이얼로그 닫기
+                                            // 추가 작업 가능
+                                          },
+                                          child: Text("봐주기"),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Expanded(
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                      top: 10,
+                                      right: 10,
+                                      child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 4, horizontal: 8),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              color: Color(0xFFEAB308)
+                                                  .withOpacity(0.16)),
+                                          child: Text(
+                                            "+20P",
+                                            style: CustomTextStyle.of(
+                                                    fontColor:
+                                                        Color(0xFFCA8A04))
+                                                .body
+                                                .sm
+                                                .semibold,
+                                          ))),
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                            "assets/new/emoji/game.svg"),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          "퀘스트하기",
+                                          style: CustomTextStyle.of(
+                                                  fontColor:
+                                                      ColorTheme.of(context)
+                                                          .static
+                                                          .black
+                                                          .withOpacity(0.8))
+                                              .heading
+                                              .mobile
+                                              .md,
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         )
                       ],
@@ -347,31 +422,61 @@ class HomeFloatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.white),
-            ),
-            SvgPicture.asset(
-              width: 32,
-              height: 32,
-              imageURL,
-              fit: BoxFit.fill,
-            ),
-          ],
-        ),
-        if (text != null)
-          Text(
-            text ?? "",
-            style: CustomTextStyle.of(fontColor: Colors.black).body.md.semibold,
-          )
-      ],
+    return InkWell(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("죄송합니다 ㅜㅜ"),
+                content: Text("기능이 준비중입니다!!!ㅢ!ㅏ!ㅏ1ㅏ1ㅏ!!!."),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // 다이얼로그 닫기
+                      // 추가 작업 가능
+                    },
+                    child: Text("봐주기"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // 다이얼로그 닫기
+                      // 추가 작업 가능
+                    },
+                    child: Text("봐주기"),
+                  ),
+                ],
+              );
+            });
+      },
+      child: Column(
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.white),
+              ),
+              SvgPicture.asset(
+                width: 32,
+                height: 32,
+                imageURL,
+                fit: BoxFit.fill,
+              ),
+            ],
+          ),
+          if (text != null)
+            Text(
+              text ?? "",
+              style:
+                  CustomTextStyle.of(fontColor: Colors.black).body.md.semibold,
+            )
+        ],
+      ),
     );
   }
 }
