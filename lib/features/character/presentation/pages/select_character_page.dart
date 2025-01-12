@@ -84,7 +84,8 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
           BottomButton(
             title: '${mentorList[_currentIndex].name}로 할래요',
             color: mentorList[_currentIndex].primaryColor,
-            foregroundColor: mentorList[_currentIndex].textColor,
+            foregroundColor:
+                mentorList[_currentIndex].textColor ?? Colors.white,
             onTap: () {
               context
                   .read<MentorProvider>()

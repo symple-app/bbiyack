@@ -63,7 +63,7 @@ class _NicknamePageState extends State<NicknamePage> {
             child: Text(
               "좋네요, 멋진 이름이네요!",
               style: CustomTextStyle.of(
-                fontColor: ColorTheme.of(context).primary.normal,
+                fontColor: Color(0xffFFB100),
               ).caption,
             ),
           ),

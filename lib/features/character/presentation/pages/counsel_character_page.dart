@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackerton_gdg/features/character/presentation/pages/counsel_result_page.dart';
 import 'package:hackerton_gdg/features/character/utils/highlight_text.dart';
+import 'package:hackerton_gdg/features/character/utils/response_text_nullable.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
 import 'package:hackerton_gdg/global/themes/text_style.dart';
 import 'package:hackerton_gdg/shared/models/mentor_model.dart';
@@ -24,6 +26,9 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
   String _userInput = "";
   String _userResponseText = "";
 
+  bool _isLoading = false;
+  bool _hasResponse = false;
+
   @override
   void initState() {
     super.initState();
@@ -37,60 +42,59 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
     return Scaffold(
       backgroundColor: Color(0xffDBDCDF),
       extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      // ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: Stack(
+            children: [
+              Row(children: [
+                ProcessCircleComponent(offset: 0, isOn: false),
+                ProcessConnectRectComponent(
+                    offset: -2, isOn: currentIndex >= 1),
+                ProcessCircleComponent(offset: -4, isOn: false),
+                ProcessConnectRectComponent(
+                    offset: -6, isOn: currentIndex >= 2),
+                ProcessCircleComponent(offset: -8, isOn: false),
+                ProcessConnectRectComponent(
+                    offset: -10, isOn: currentIndex >= 3),
+                ProcessCircleComponent(offset: -12, isOn: false),
+                ProcessConnectRectComponent(
+                    offset: -14, isOn: currentIndex >= 4),
+                ProcessCircleComponent(offset: -16, isOn: false),
+              ]),
+              // 진행
+              Row(children: [
+                if (currentIndex >= 0)
+                  ProcessCircleComponent(offset: 0, isOn: currentIndex >= 0),
+                if (currentIndex >= 1)
+                  ProcessConnectRectComponent(
+                      offset: -2, isOn: currentIndex >= 1),
+                if (currentIndex >= 1)
+                  ProcessCircleComponent(offset: -4, isOn: currentIndex >= 1),
+                if (currentIndex >= 2)
+                  ProcessConnectRectComponent(
+                      offset: -6, isOn: currentIndex >= 2),
+                if (currentIndex >= 2)
+                  ProcessCircleComponent(offset: -8, isOn: currentIndex >= 2),
+                if (currentIndex >= 3)
+                  ProcessConnectRectComponent(
+                      offset: -10, isOn: currentIndex >= 3),
+                if (currentIndex >= 3)
+                  ProcessCircleComponent(offset: -12, isOn: currentIndex >= 3),
+                if (currentIndex >= 4)
+                  ProcessConnectRectComponent(
+                      offset: -14, isOn: currentIndex >= 4),
+                if (currentIndex >= 4)
+                  ProcessCircleComponent(offset: -16, isOn: currentIndex >= 4),
+              ]),
+            ],
+          ),
+        ),
       ),
-      // appBar: AppBar(
-      //   backgroundColor: selectedMentor.backgroundColor,
-      //   foregroundColor: ColorTheme.of(context).inverse.background,
-      //   title: Padding(
-      //     padding: EdgeInsets.only(left: 10),
-      //     child: Stack(
-      //       children: [
-      //         Row(children: [
-      //           ProcessCircleComponent(offset: 0, isOn: false),
-      //           ProcessConnectRectComponent(
-      //               offset: -2, isOn: currentIndex >= 1),
-      //           ProcessCircleComponent(offset: -4, isOn: false),
-      //           ProcessConnectRectComponent(
-      //               offset: -6, isOn: currentIndex >= 2),
-      //           ProcessCircleComponent(offset: -8, isOn: false),
-      //           ProcessConnectRectComponent(
-      //               offset: -10, isOn: currentIndex >= 3),
-      //           ProcessCircleComponent(offset: -12, isOn: false),
-      //           ProcessConnectRectComponent(
-      //               offset: -14, isOn: currentIndex >= 4),
-      //           ProcessCircleComponent(offset: -16, isOn: false),
-      //         ]),
-      //         // 진행
-      //         Row(children: [
-      //           if (currentIndex >= 0)
-      //             ProcessCircleComponent(offset: 0, isOn: currentIndex >= 0),
-      //           if (currentIndex >= 1)
-      //             ProcessConnectRectComponent(
-      //                 offset: -2, isOn: currentIndex >= 1),
-      //           if (currentIndex >= 1)
-      //             ProcessCircleComponent(offset: -4, isOn: currentIndex >= 1),
-      //           if (currentIndex >= 2)
-      //             ProcessConnectRectComponent(
-      //                 offset: -6, isOn: currentIndex >= 2),
-      //           if (currentIndex >= 2)
-      //             ProcessCircleComponent(offset: -8, isOn: currentIndex >= 2),
-      //           if (currentIndex >= 3)
-      //             ProcessConnectRectComponent(
-      //                 offset: -10, isOn: currentIndex >= 3),
-      //           if (currentIndex >= 3)
-      //             ProcessCircleComponent(offset: -12, isOn: currentIndex >= 3),
-      //           if (currentIndex >= 4)
-      //             ProcessConnectRectComponent(
-      //                 offset: -14, isOn: currentIndex >= 4),
-      //           if (currentIndex >= 4)
-      //             ProcessCircleComponent(offset: -16, isOn: currentIndex >= 4),
-      //         ]),
-      //       ],
-      //     ),
-      //   ),
-      // ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -128,9 +132,11 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
                     ),
                     padding: EdgeInsets.all(16),
                     child: Text(
-                      _userResponseText == ""
-                          ? selectedMentor.summaryText
-                          : "이런 부분은 다시 생각해\n보는 게 좋을 것 같아 :)",
+                      _hasResponse
+                          ? isResponseTextNullable(_userResponseText)
+                              ? "잘하고있어 !"
+                              : "이런 부분은 다시 생각해\n보는 게 좋을 것 같아 :)"
+                          : selectedMentor.summaryText,
                       style: CustomTextStyle.of(
                         fontColor: Color(0xff000000).withValues(alpha: 0.8),
                       ).body.lg.semibold,
@@ -156,7 +162,8 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
                             borderRadius: BorderRadius.circular(16), // 모서리 둥글게
                             borderSide: BorderSide.none, // 테두리 제거
                           ),
-                          hintText: "해피해피해피", // 텍스트 필드 기본 값 (힌트)
+                          hintText:
+                              "예시: 오늘 늦잠을 자서 삐약톤에 늦참했어요ㅜ", // 텍스트 필드 기본 값 (힌트)
                           hintStyle:
                               TextStyle(color: Colors.grey), // 힌트 텍스트 스타일
                         ),
@@ -173,15 +180,32 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
                     ),
               Spacer(),
               BottomButton(
+                isActive: !_isLoading,
+                isLoading: _isLoading,
                 title: "다음으로",
                 color: selectedMentor.primaryColor,
                 foregroundColor: selectedMentor.textColor ?? Colors.white,
                 onTap: () async {
+                  FocusScope.of(context).unfocus();
+
+                  setState(() {
+                    _isLoading = true;
+                  });
+
+                  if (_hasResponse) {
+                    Navigator.push(
+                      context,
+                      CounselResultPage.route(),
+                    );
+                  }
+
                   String responseText = await checkKoreanProfanity(_userInput);
 
                   setState(() {
                     currentIndex = 4;
                     _userResponseText = responseText;
+                    _hasResponse = true;
+                    _isLoading = false;
                   });
                 },
               )
@@ -283,30 +307,31 @@ class CounselResultComponent extends StatelessWidget {
             ),
           ),
           SizedBox(height: 12),
-          Container(
-            width: double.infinity, // 사각형 너비
-            decoration: BoxDecoration(
-              color: Colors.white, // 배경 색상
-              borderRadius: BorderRadius.circular(16), // 모서리 둥글게
+          if (!isResponseTextNullable(responseText))
+            Container(
+              width: double.infinity, // 사각형 너비
+              decoration: BoxDecoration(
+                color: Colors.white, // 배경 색상
+                borderRadius: BorderRadius.circular(16), // 모서리 둥글게
+              ),
+              padding: EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "개선필요",
+                    style: CustomTextStyle.of(
+                      fontColor: Color(0xffEF4444),
+                    ).body.md.semibold,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "[$responseText] 무슨 말이죠?\n다시 생각하세요.",
+                    style: CustomTextStyle.of().body.lg.semibold,
+                  ),
+                ],
+              ),
             ),
-            padding: EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "개선필요",
-                  style: CustomTextStyle.of(
-                    fontColor: Color(0xffEF4444),
-                  ).body.md.semibold,
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "[$responseText] 무슨 말이죠?\n다시 생각하세요.",
-                  style: CustomTextStyle.of().body.lg.semibold,
-                ),
-              ],
-            ),
-          ),
           SizedBox(height: 8),
           Row(
             children: [
