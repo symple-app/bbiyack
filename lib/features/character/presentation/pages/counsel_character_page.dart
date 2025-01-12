@@ -180,7 +180,7 @@ class _CounselCharacterPageState extends State<CounselCharacterPage> {
                     ),
               Spacer(),
               BottomButton(
-                isActive: !_isLoading,
+                isActive: _hasResponse && !_isLoading,
                 isLoading: _isLoading,
                 title: "다음으로",
                 color: selectedMentor.primaryColor,
