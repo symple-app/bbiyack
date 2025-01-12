@@ -64,7 +64,7 @@ class _CounselResultPageState extends State<CounselResultPage> {
                 ),
               ),
               child: Image.asset(
-                "assets/new/character/one_ggio.png",
+                "assets/new/character/bbiyack.png",
               ),
             ),
             Spacer(),
