@@ -50,7 +50,7 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
           SizedBox(height: 70),
           CarouselSlider(
             options: CarouselOptions(
-              height: 340.0,
+              height: 300.0,
               initialPage: 0,
               enableInfiniteScroll: true,
               onPageChanged: (index, reason) {
