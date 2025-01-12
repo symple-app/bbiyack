@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
 import 'package:hackerton_gdg/global/themes/text_style.dart';
+import 'package:hackerton_gdg/shared/models/mentor_model.dart';
+import 'package:hackerton_gdg/shared/provider/mentor/mentor_provider.dart';
 
 class CounselResultPage extends StatefulWidget {
   const CounselResultPage({Key? key}) : super(key: key);
+
+  static Route<void> route() {
+    return MaterialPageRoute(builder: (_) => const CounselResultPage());
+  }
 
   @override
   _CounselResultPageState createState() => _CounselResultPageState();
@@ -12,15 +19,27 @@ class CounselResultPage extends StatefulWidget {
 class _CounselResultPageState extends State<CounselResultPage> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width; // 화면의 가로 길이를 가져옴
+    Mentor selectedMentor = context.read<MentorProvider>().selectedMentor;
+
+    double width = MediaQuery.of(context).size.width * 0.7; // 화면의 가로 길이를 가져옴
 
     return Scaffold(
+      backgroundColor: Color(0xFFDBDCDF),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Color(0xFFDBDCDF),
-        foregroundColor: ColorTheme.of(context).inverse.background,
+        backgroundColor: Colors.transparent,
       ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFFDBDCDF)),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              selectedMentor.backgroundColor,
+              Colors.white,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: SafeArea(
             child: Column(
           children: [
@@ -29,23 +48,21 @@ class _CounselResultPageState extends State<CounselResultPage> {
               child: Text(
                 "삐약이의 애정도가\n20P 증가했어요!",
                 style: CustomTextStyle.of(
-                        fontColor: ColorTheme.of(context).label.normal)
-                    .heading
-                    .mobile
-                    .xl2,
+                  fontColor: selectedMentor.textColor ?? Colors.white,
+                ).heading.mobile.xl2,
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 16),
-            Text(
-              "퀘스트를 진행하면 \n포인트를 더 받을 수 있어요",
-              textAlign: TextAlign.center,
-              style:
-                  CustomTextStyle.of(fontColor: Colors.black.withOpacity(0.6))
-                      .body
-                      .lg
-                      .regular,
-            ),
+            SizedBox(height: 64),
+            // Text(
+            //   "퀘스트를 진행하면 \n포인트를 더 받을 수 있어요",
+            //   textAlign: TextAlign.center,
+            //   style:
+            //       CustomTextStyle.of(fontColor: Colors.black.withOpacity(0.6))
+            //           .body
+            //           .lg
+            //           .regular,
+            // ),
             SizedBox(height: 16),
             Container(
               width: width,
@@ -72,7 +89,7 @@ class _CounselResultPageState extends State<CounselResultPage> {
                   Expanded(
                     child: InkWell(
                       child: Container(
-                        height: 56,
+                        height: 64,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
@@ -95,17 +112,18 @@ class _CounselResultPageState extends State<CounselResultPage> {
                   Expanded(
                     child: InkWell(
                       child: Container(
-                        height: 56,
+                        height: 64,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: Color(0xFFFFB100),
+                          color: selectedMentor.primaryColor,
                         ),
                         child: Center(
                           child: Text(
                             "퀘스트하기",
                             style: CustomTextStyle.of(
-                              fontColor: ColorTheme.of(context).static.black,
+                              fontColor:
+                                  selectedMentor.textColor ?? Colors.white,
                             ).subTitle,
                             textAlign: TextAlign.center,
                           ),

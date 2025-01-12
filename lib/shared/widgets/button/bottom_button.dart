@@ -32,9 +32,7 @@ class BottomButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: isActive
-                ? color ?? ColorTheme.of(context).primary.normal
-                : ColorTheme.of(context).interaction.disable,
+            color: color ?? Color(0xffFFB100),
           ),
           child: Center(
             child: isLoading
@@ -50,7 +48,7 @@ class BottomButton extends StatelessWidget {
                     title,
                     style: CustomTextStyle.of(
                       fontColor: foregroundColor ??
-                          ColorTheme.of(context).static.white,
+                          ColorTheme.of(context).static.black,
                     ).subTitle,
                     textAlign: TextAlign.center,
                   ),

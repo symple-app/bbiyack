@@ -138,9 +138,6 @@ class _AppViewState extends State<AppView> {
       BuildContext context, AuthenticationState state) {
     switch (state.step) {
       case AuthenticationStep.onboarding:
-      // _navigator.push(OnboardingPage.route());
-      // break;
-
       case AuthenticationStep.nickname:
         _navigator.push(NicknamePage.route());
         break;

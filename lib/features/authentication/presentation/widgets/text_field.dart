@@ -73,7 +73,7 @@ class SignUpTextFormField extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
               borderSide: BorderSide(
-                color: ColorTheme.of(context).primary.normal,
+                color: Color(0xffFFB100),
                 width: 1,
               ),
             ),
