@@ -39,6 +39,7 @@ flutter:
   assets:
     - .env
 
+    - assets/new/
     - assets/new/background/
     - assets/new/character/
     - assets/new/emoji/
