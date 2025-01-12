@@ -32,10 +32,13 @@ class _SelectCharacterPageState extends State<SelectCharacterPage> {
     List<Mentor> mentorList = context.read<MentorProvider>().mentorList;
 
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: Colors.black,
+      ),
       body: SafeArea(
           child: Column(
         children: [
-          SizedBox(height: 76),
+          SizedBox(height: 40),
           Center(
             child: Text(
               "고민을 털어놓을\n 끼오 스승을 골라주세요",

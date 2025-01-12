@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hackerton_gdg/features/character/presentation/pages/select_character_page.dart';
 import 'package:hackerton_gdg/features/home/presentation/pages/chart_page.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
 import 'package:hackerton_gdg/global/themes/text_style.dart';
@@ -90,33 +91,8 @@ class HomePage extends StatelessWidget {
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text("죄송합니다 ㅜㅜ"),
-                                      content:
-                                          Text("기능이 준비중입니다!!!ㅢ!ㅏ!ㅏ1ㅏ1ㅏ!!!."),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .pop(); // 다이얼로그 닫기
-                                            // 추가 작업 가능
-                                          },
-                                          child: Text("봐주기"),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .pop(); // 다이얼로그 닫기
-                                            // 추가 작업 가능
-                                          },
-                                          child: Text("봐주기"),
-                                        ),
-                                      ],
-                                    );
-                                  });
+                              Navigator.push(
+                                  context, SelectCharacterPage.route());
                             },
                             child: Expanded(
                               child: Stack(
