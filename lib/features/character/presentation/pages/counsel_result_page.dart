@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackerton_gdg/features/home/presentation/pages/home_page.dart';
 import 'package:hackerton_gdg/global/themes/color_theme.dart';
 import 'package:hackerton_gdg/global/themes/text_style.dart';
 import 'package:hackerton_gdg/shared/models/mentor_model.dart';
@@ -93,14 +94,13 @@ class _CounselResultPageState extends State<CounselResultPage> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: ColorTheme.of(context).static.white,
+                          color: Colors.white.withValues(alpha: 0.6),
                         ),
                         child: Center(
                           child: Text(
                             "다음에 하기",
                             style: CustomTextStyle.of(
-                              fontColor:
-                                  ColorTheme.of(context).inverse.background,
+                              fontColor: Colors.black,
                             ).subTitle,
                             textAlign: TextAlign.center,
                           ),
@@ -111,6 +111,13 @@ class _CounselResultPageState extends State<CounselResultPage> {
                   SizedBox(width: 7.5),
                   Expanded(
                     child: InkWell(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          HomePage.route(),
+                          (route) => false,
+                        );
+                      },
                       child: Container(
                         height: 64,
                         padding: const EdgeInsets.symmetric(vertical: 16),
