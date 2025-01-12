@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hackerton_gdg/features/character/presentation/pages/counsel_character_page.dart';
+import 'package:hackerton_gdg/features/character/presentation/pages/counsel_result_page.dart';
 import 'package:hackerton_gdg/features/character/presentation/pages/select_character_page.dart';
+import 'package:hackerton_gdg/features/home/presentation/pages/home_page.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -11,6 +13,6 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CounselCharacterPage();
+    return const HomePage();
   }
 }

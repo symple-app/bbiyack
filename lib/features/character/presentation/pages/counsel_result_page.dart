@@ -46,7 +46,7 @@ class _CounselResultPageState extends State<CounselResultPage> {
               style:
                   CustomTextStyle.of(fontColor: Colors.black.withOpacity(0.6))
                       .body
-                      .mobile
+                      .sm
                       .regular,
             ),
             SizedBox(height: 16),
